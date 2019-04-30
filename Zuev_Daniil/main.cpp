@@ -1,4 +1,3 @@
- 
 #include <iostream>
 #include <vector>
 #include <map>
@@ -26,8 +25,9 @@ private:
     int min_b;
     map<char, Vertex*> vertexes;
     string current_path;
+    bool is_path_exists;
 public:
-    Graph():min_b(10000){}
+    Graph():min_b(10000),is_path_exists(0){}
     void readCons()
     {
         char f, s;
@@ -99,6 +99,7 @@ public:
 
     void FFA()
     {
+        is_path_exists = 1;
         int length;
         int min_length = 10000;
         int max_length = 10000;
@@ -121,6 +122,11 @@ public:
     }
     void print()
     {
+        if(is_path_exists == 0)
+        {
+            cout<<"Path from source to sink doesn't exists!"<<endl;
+            return;
+        }
         int sum = 0;
         for(map<char, int>::iterator it = vertexes[begin]->mod_lengthes.begin(); it!=vertexes[begin]->mod_lengthes.end(); ++it)
             sum+=it->second;
